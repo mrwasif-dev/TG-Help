@@ -1,40 +1,19 @@
 {
   "name": "tg-help-bot",
   "version": "2.0.0",
-  "description": "Professional Telegram Support Chat Bot with Ticket System - One Click Heroku Deployment",
+  "description": "Telegram Support Bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "deploy": "git push heroku main",
-    "logs": "heroku logs --tail"
+    "start": "node index.js"
   },
-  "keywords": [
-    "telegram",
-    "bot",
-    "support",
-    "chat",
-    "ticket",
-    "customer-service",
-    "heroku",
-    "one-click-deploy",
-    "mrwasif-dev"
-  ],
-  "author": "mrwasif-dev",
-  "license": "MIT",
   "dependencies": {
     "telegraf": "^4.16.3"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=16.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrwasif-dev/TG-Help.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mrwasif-dev/TG-Help/issues"
-  },
-  "homepage": "https://github.com/mrwasif-dev/TG-Help#readme"
+    "url": "https://github.com/mrwasif-dev/TG-Help"
+  }
 }
