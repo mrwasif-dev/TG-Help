@@ -1,0 +1,37 @@
+{
+  "name": "telegram-support-bot",
+  "version": "1.0.0",
+  "description": "Professional Telegram Support Chat Bot with Ticket System",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "support",
+    "chat",
+    "ticket",
+    "customer-service"
+  ],
+  "author": "Telegram Support Team",
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^4.16.3",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/telegram-support-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/telegram-support-bot/issues"
+  },
+  "homepage": "https://github.com/your-username/telegram-support-bot#readme"
+}
