@@ -1,12 +1,14 @@
 {
-  "name": "telegram-support-bot",
-  "version": "1.0.0",
+  "name": "tg-help-bot",
+  "version": "2.0.0",
   "description": "Professional Telegram Support Chat Bot with Ticket System",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-deploy": "git push heroku main",
+    "heroku-logs": "heroku logs --tail",
+    "heroku-restart": "heroku restart"
   },
   "keywords": [
     "telegram",
@@ -14,13 +16,14 @@
     "support",
     "chat",
     "ticket",
-    "customer-service"
+    "customer-service",
+    "heroku",
+    "mrwasif-dev"
   ],
-  "author": "Telegram Support Team",
+  "author": "mrwasif-dev",
   "license": "MIT",
   "dependencies": {
-    "telegraf": "^4.16.3",
-    "dotenv": "^16.3.1"
+    "telegraf": "^4.16.3"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -28,10 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/telegram-support-bot.git"
+    "url": "git+https://github.com/mrwasif-dev/TG-Help.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/telegram-support-bot/issues"
+    "url": "https://github.com/mrwasif-dev/TG-Help/issues"
   },
-  "homepage": "https://github.com/your-username/telegram-support-bot#readme"
+  "homepage": "https://github.com/mrwasif-dev/TG-Help#readme"
 }
