@@ -1,28 +1,66 @@
-# 🤖 Telegram Support Chat Bot
+# 🤖 TG-Help - Telegram Support Chat Bot
 
-A professional support ticket system built for Telegram to manage customer inquiries efficiently.
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mrwasif-dev/TG-Help)
+[![GitHub Stars](https://img.shields.io/github/stars/mrwasif-dev/TG-Help?style=social)](https://github.com/mrwasif-dev/TG-Help/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/mrwasif-dev/TG-Help?style=social)](https://github.com/mrwasif-dev/TG-Help/network/members)
+
+A professional Telegram Support Chat Bot with complete ticket management system. Built with Node.js and Telegraf.js.
+
+## 🚀 One-Click Deployment
+
+Click the button above to deploy your own instance on Heroku. Pre-configured with:
+
+- ✅ BOT_TOKEN: `8395607834:AAE7IJEt1xVs4-WzJxcntAfMES3IcpRnjtg`
+- ✅ ADMIN_ID: `6012422087`
+
+**Note:** Replace with your own credentials for security.
 
 ## ✨ Features
 
-- 🎫 **Ticket Management**: Create, track, and manage support tickets
-- 👑 **Admin Panel**: Complete admin interface with statistics
-- 💬 **Real-time Chat**: Live chat between users and admin
-- 📊 **Statistics**: Detailed analytics and reporting
-- ⏳ **Pending Requests**: Queue system for incoming requests
-- ✅ **Approve/Reject**: Admin can approve or reject requests with reason
-- 📱 **User-friendly**: Simple interface for users
+### 🎫 Complete Ticket System
+- Create tickets with unique IDs
+- Track ticket status (Pending → Approved → Closed)
+- Automatic timestamp for all actions
+- Message history storage
 
-## 🚀 Quick Start
+### 👑 Admin Control Panel
+- Dashboard with real-time statistics
+- Pending requests management
+- Active chat sessions monitoring
+- Approve/Reject with custom reasons
+- One-click chat session end
+
+### 💬 Real-time Communication
+- Live chat between users and admin
+- Message forwarding system
+- Notification system for both parties
+- Session management
+
+### 📊 Analytics & Reporting
+- Daily ticket statistics
+- Issue type analysis
+- User activity tracking
+- Performance metrics
+
+## 🛠️ Quick Start
 
 ### Prerequisites
-- Node.js >= 16
-- npm or yarn
+- Node.js 16+ 
 - Telegram Bot Token (from @BotFather)
-- Telegram Admin User ID (from @userinfobot)
+- Telegram User ID (from @userinfobot)
 
-### Installation
+### Local Installation
+```bash
+# Clone the repository
+git clone https://github.com/mrwasif-dev/TG-Help.git
+cd TG-Help
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/telegram-support-bot.git
-   cd telegram-support-bot
+# Install dependencies
+npm install
+
+# Create .env file (optional)
+cp .env.example .env
+# Edit .env with your credentials
+
+# Start the bot
+npm start
