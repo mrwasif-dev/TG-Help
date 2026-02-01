@@ -2,7 +2,7 @@ const { Telegraf, Markup } = require('telegraf');
 const fs = require('fs');
 
 // ===== BOT CONFIGURATION =====
-const BOT_TOKEN = process.env.BOT_TOKEN || '8395607834:AAE7IJEt1xVs4-WzJxcntAfMES3IcpRnjtg';
+const BOT_TOKEN = process.env.BOT_TOKEN || '8395607834:AAGBFF85MRmNp1XxEcdZnKv3Fn4rq_IuC8k';
 const ADMIN_ID = process.env.ADMIN_ID || '6012422087';
 
 const bot = new Telegraf(BOT_TOKEN);
