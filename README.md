@@ -1,66 +1,52 @@
-# 🤖 TG-Help - Telegram Support Chat Bot
+# 🤖 TG-Help - Telegram Support Bot
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mrwasif-dev/TG-Help)
-[![GitHub Stars](https://img.shields.io/github/stars/mrwasif-dev/TG-Help?style=social)](https://github.com/mrwasif-dev/TG-Help/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/mrwasif-dev/TG-Help?style=social)](https://github.com/mrwasif-dev/TG-Help/network/members)
 
 A professional Telegram Support Chat Bot with complete ticket management system. Built with Node.js and Telegraf.js.
 
-## 🚀 One-Click Deployment
-
-Click the button above to deploy your own instance on Heroku. Pre-configured with:
-
-- ✅ BOT_TOKEN: `8395607834:AAE7IJEt1xVs4-WzJxcntAfMES3IcpRnjtg`
-- ✅ ADMIN_ID: `6012422087`
-
-**Note:** Replace with your own credentials for security.
-
 ## ✨ Features
 
-### 🎫 Complete Ticket System
-- Create tickets with unique IDs
-- Track ticket status (Pending → Approved → Closed)
-- Automatic timestamp for all actions
-- Message history storage
+- 🎫 **Ticket System**: Create and manage support tickets
+- 👑 **Admin Panel**: Complete dashboard with statistics
+- 💬 **Real-time Chat**: Live chat between users and admin
+- 📊 **Analytics**: Detailed reporting and statistics
+- 🚀 **One-Click Deployment**: Deploy to Heroku in seconds
 
-### 👑 Admin Control Panel
-- Dashboard with real-time statistics
-- Pending requests management
-- Active chat sessions monitoring
-- Approve/Reject with custom reasons
-- One-click chat session end
+## 🚀 Quick Deployment
 
-### 💬 Real-time Communication
-- Live chat between users and admin
-- Message forwarding system
-- Notification system for both parties
-- Session management
+1. **Click the "Deploy to Heroku" button above**
+2. **Enter your credentials:**
+   - `BOT_TOKEN`: From @BotFather on Telegram
+   - `ADMIN_ID`: From @userinfobot on Telegram
+3. **That's it!** Your bot will be deployed automatically
 
-### 📊 Analytics & Reporting
-- Daily ticket statistics
-- Issue type analysis
-- User activity tracking
-- Performance metrics
+## 📖 Usage
 
-## 🛠️ Quick Start
+### For Users:
+1. Start bot with `/start`
+2. Select issue type
+3. Wait for admin approval
+4. Start chatting with admin
 
-### Prerequisites
-- Node.js 16+ 
-- Telegram Bot Token (from @BotFather)
-- Telegram User ID (from @userinfobot)
+### For Admin:
+1. Start bot with `/start`
+2. Access admin panel
+3. Manage pending requests
+4. Chat with users
 
-### Local Installation
+## 🛠️ Local Development
+
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/mrwasif-dev/TG-Help.git
 cd TG-Help
 
 # Install dependencies
 npm install
 
-# Create .env file (optional)
+# Create .env file
 cp .env.example .env
 # Edit .env with your credentials
 
-# Start the bot
+# Start bot
 npm start
