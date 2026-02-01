@@ -1,19 +1,17 @@
 {
   "name": "tg-help-bot",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Telegram Support Bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "dependencies": {
     "telegraf": "^4.16.3"
   },
   "engines": {
-    "node": ">=16.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mrwasif-dev/TG-Help"
+    "node": "18.x",
+    "npm": "9.x"
   }
 }
