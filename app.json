@@ -3,10 +3,10 @@
   "description": "Professional Telegram Support Chat Bot with Ticket System",
   "repository": "https://github.com/mrwasif-dev/TG-Help",
   "logo": "https://raw.githubusercontent.com/mrwasif-dev/TG-Help/main/logo.png",
-  "keywords": ["telegram", "bot", "support", "chat", "ticket", "customer-service"],
+  "keywords": ["telegram", "bot", "support", "chat", "ticket"],
   "env": {
     "BOT_TOKEN": {
-      "description": "Your Telegram Bot Token from @BotFather",
+      "description": "Telegram Bot Token from @BotFather",
       "required": true,
       "value": "8395607834:AAE7IJEt1xVs4-WzJxcntAfMES3IcpRnjtg"
     },
@@ -26,6 +26,5 @@
       "quantity": 1,
       "size": "eco"
     }
-  },
-  "addons": []
+  }
 }
