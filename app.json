@@ -1,0 +1,35 @@
+{
+  "name": "TG-Help Support Bot",
+  "description": "Professional Telegram Support Chat Bot with Ticket System",
+  "repository": "https://github.com/mrwasif-dev/TG-Help",
+  "logo": "https://raw.githubusercontent.com/mrwasif-dev/TG-Help/main/logo.png",
+  "keywords": ["telegram", "bot", "support", "chat", "ticket", "customer-service"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Your Telegram Bot Token from @BotFather",
+      "required": true,
+      "value": "8395607834:AAE7IJEt1xVs4-WzJxcntAfMES3IcpRnjtg"
+    },
+    "ADMIN_ID": {
+      "description": "Your Telegram User ID from @userinfobot",
+      "required": true,
+      "value": "6012422087"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev"
+    }
+  ]
+}
