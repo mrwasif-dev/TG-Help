@@ -28,11 +28,9 @@ function saveTickets() {
 
 // ===== SESSIONS =====
 const sessions = {};
-const activeChats = {}; // Store active chat sessions: { ticketId: { userId, adminId } }
+const activeChats = {};
 
 // ===== UTILITY FUNCTIONS =====
-
-// Get current Pakistan date and time
 function getCurrentDateTime() {
     const d = new Date();
     const utc = d.getTime() + d.getTimezoneOffset() * 60000;
@@ -44,7 +42,6 @@ function getCurrentDateTime() {
     return { date, time };
 }
 
-// Generate unique ticket ID
 function generateTicketId() {
     return 'TICKET_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 }
@@ -53,7 +50,6 @@ function generateTicketId() {
 bot.start(async (ctx) => {
     const chatId = ctx.chat.id;
     
-    // Check if admin
     if (chatId.toString() === ADMIN_ID.toString()) {
         return ctx.reply(
             '👑 *Support Chat Admin Panel* 👑\n\nSelect an option:',
@@ -69,7 +65,6 @@ bot.start(async (ctx) => {
         );
     }
 
-    // Regular user - show support options
     await ctx.reply(
         '👋 *Welcome to Paid WhatsApp Bot Support Chat!*\n\nHow can I help you today?',
         {
@@ -87,36 +82,12 @@ bot.start(async (ctx) => {
 });
 
 // ===== ISSUE SELECTION HANDLERS =====
-
-// Account Issues
-bot.action('issue_account', async (ctx) => {
-    await createSupportRequest(ctx, 'Account Issues');
-});
-
-// Deposit/Withdrawal Problems
-bot.action('issue_deposit', async (ctx) => {
-    await createSupportRequest(ctx, 'Deposit/Withdrawal Problems');
-});
-
-// Bot Setup Assistance
-bot.action('issue_setup', async (ctx) => {
-    await createSupportRequest(ctx, 'Bot Setup Assistance');
-});
-
-// Technical Support
-bot.action('issue_technical', async (ctx) => {
-    await createSupportRequest(ctx, 'Technical Support');
-});
-
-// General Inquiries
-bot.action('issue_general', async (ctx) => {
-    await createSupportRequest(ctx, 'General Inquiries');
-});
-
-// Other Issues
-bot.action('issue_other', async (ctx) => {
-    await createSupportRequest(ctx, 'Other Issues');
-});
+bot.action('issue_account', async (ctx) => { await createSupportRequest(ctx, 'Account Issues'); });
+bot.action('issue_deposit', async (ctx) => { await createSupportRequest(ctx, 'Deposit/Withdrawal Problems'); });
+bot.action('issue_setup', async (ctx) => { await createSupportRequest(ctx, 'Bot Setup Assistance'); });
+bot.action('issue_technical', async (ctx) => { await createSupportRequest(ctx, 'Technical Support'); });
+bot.action('issue_general', async (ctx) => { await createSupportRequest(ctx, 'General Inquiries'); });
+bot.action('issue_other', async (ctx) => { await createSupportRequest(ctx, 'Other Issues'); });
 
 // ===== CREATE SUPPORT REQUEST =====
 async function createSupportRequest(ctx, issueType) {
@@ -124,10 +95,8 @@ async function createSupportRequest(ctx, issueType) {
     const username = ctx.from.username || ctx.from.first_name;
     const { date, time } = getCurrentDateTime();
     
-    // Generate ticket ID
     const ticketId = generateTicketId();
     
-    // Create ticket
     tickets[ticketId] = {
         id: ticketId,
         userId: userId,
@@ -140,10 +109,8 @@ async function createSupportRequest(ctx, issueType) {
         adminActionTime: null
     };
     
-    // Save to database
     saveTickets();
     
-    // Notify user
     await ctx.reply(
         `✅ *Support Request Sent!*\n\n` +
         `📋 *Ticket Details:*\n` +
@@ -154,7 +121,6 @@ async function createSupportRequest(ctx, issueType) {
         { parse_mode: 'Markdown' }
     );
     
-    // Notify admin with Approve/Reject buttons
     const adminMessage = 
         `🆕 *NEW SUPPORT REQUEST* 🆕\n\n` +
         `🎫 *Ticket ID:* ${ticketId}\n` +
@@ -187,13 +153,11 @@ bot.action(/admin_approve_(TICKET_\d+_\d+)/, async (ctx) => {
     
     const { date, time } = getCurrentDateTime();
     
-    // Update ticket status
     ticket.status = 'approved';
     ticket.adminAction = 'approved';
     ticket.adminActionTime = `${date} ${time}`;
     ticket.adminId = ctx.chat.id;
     
-    // Create active chat session
     activeChats[ticketId] = {
         userId: ticket.userId,
         adminId: ctx.chat.id,
@@ -202,7 +166,6 @@ bot.action(/admin_approve_(TICKET_\d+_\d+)/, async (ctx) => {
     
     saveTickets();
     
-    // Notify user
     await bot.telegram.sendMessage(
         ticket.userId,
         `🎉 *Support Request Approved!*\n\n` +
@@ -215,7 +178,6 @@ bot.action(/admin_approve_(TICKET_\d+_\d+)/, async (ctx) => {
         { parse_mode: 'Markdown' }
     );
     
-    // Update admin message
     await ctx.editMessageText(
         `✅ *Chat Session Started* ✅\n\n` +
         `🎫 Ticket ID: ${ticketId}\n` +
@@ -234,7 +196,6 @@ bot.action(/admin_approve_(TICKET_\d+_\d+)/, async (ctx) => {
         }
     );
     
-    // Send welcome message to admin
     await ctx.reply(
         `💬 *Chat Session Active*\n\n` +
         `You are now chatting with ${ticket.username}\n` +
@@ -255,7 +216,6 @@ bot.action(/admin_reject_(TICKET_\d+_\d+)/, async (ctx) => {
         return ctx.answerCbQuery('Ticket not found!', { show_alert: true });
     }
     
-    // Ask admin for rejection reason
     sessions[ctx.chat.id] = {
         flow: 'admin_reject_reason',
         ticketId: ticketId
@@ -283,17 +243,14 @@ bot.action(/admin_end_chat_(TICKET_\d+_\d+)/, async (ctx) => {
     
     const { date, time } = getCurrentDateTime();
     
-    // Update ticket status
     ticket.status = 'closed';
     ticket.closedAt = `${date} ${time}`;
     ticket.closedBy = 'admin';
     
-    // Remove from active chats
     delete activeChats[ticketId];
     
     saveTickets();
     
-    // Notify user
     await bot.telegram.sendMessage(
         ticket.userId,
         `📞 *Chat Session Ended*\n\n` +
@@ -305,7 +262,6 @@ bot.action(/admin_end_chat_(TICKET_\d+_\d+)/, async (ctx) => {
         { parse_mode: 'Markdown' }
     );
     
-    // Notify admin
     await ctx.editMessageText(
         `🚪 *Chat Session Ended* 🚪\n\n` +
         `✅ Successfully closed chat session.\n` +
@@ -322,7 +278,6 @@ bot.action(/admin_end_chat_(TICKET_\d+_\d+)/, async (ctx) => {
         }
     );
     
-    // Send confirmation to admin
     await ctx.reply(
         `✅ Chat session with ${ticket.username} has been closed.`,
         { parse_mode: 'Markdown' }
@@ -398,8 +353,6 @@ bot.action(/admin_back_chat_(TICKET_\d+_\d+)/, async (ctx) => {
 });
 
 // ===== ADMIN PANEL BUTTONS =====
-
-// Pending Requests
 bot.action('adminPendingRequests', async (ctx) => {
     const pendingTickets = Object.values(tickets).filter(t => t.status === 'pending');
     
@@ -419,7 +372,6 @@ bot.action('adminPendingRequests', async (ctx) => {
         message += `   📅 ${ticket.createdAt}\n\n`;
     });
     
-    // Create buttons for each pending ticket
     const buttons = pendingTickets.slice(0, 5).map(ticket => [
         Markup.button.callback(`👤 ${ticket.username} - ${ticket.issueType}`, `admin_view_pending_${ticket.id}`)
     ]);
@@ -435,7 +387,6 @@ bot.action('adminPendingRequests', async (ctx) => {
     );
 });
 
-// View pending ticket
 bot.action(/admin_view_pending_(TICKET_\d+_\d+)/, async (ctx) => {
     const ticketId = ctx.match[1];
     const ticket = tickets[ticketId];
@@ -462,7 +413,6 @@ bot.action(/admin_view_pending_(TICKET_\d+_\d+)/, async (ctx) => {
     );
 });
 
-// Active Chats
 bot.action('adminActiveChats', async (ctx) => {
     const activeTickets = Object.values(tickets).filter(t => t.status === 'approved');
     
@@ -486,7 +436,6 @@ bot.action('adminActiveChats', async (ctx) => {
         message += `\n`;
     });
     
-    // Create buttons for each active chat
     const buttons = activeTickets.slice(0, 5).map(ticket => [
         Markup.button.callback(`💬 Chat with ${ticket.username}`, `admin_join_chat_${ticket.id}`)
     ]);
@@ -502,7 +451,6 @@ bot.action('adminActiveChats', async (ctx) => {
     );
 });
 
-// Join active chat
 bot.action(/admin_join_chat_(TICKET_\d+_\d+)/, async (ctx) => {
     const ticketId = ctx.match[1];
     const ticket = tickets[ticketId];
@@ -528,7 +476,6 @@ bot.action(/admin_join_chat_(TICKET_\d+_\d+)/, async (ctx) => {
     );
 });
 
-// All Tickets
 bot.action('adminAllTickets', async (ctx) => {
     const allTickets = Object.values(tickets);
     
@@ -563,7 +510,6 @@ bot.action('adminAllTickets', async (ctx) => {
     );
 });
 
-// Stats
 bot.action('adminStats', async (ctx) => {
     const allTickets = Object.values(tickets);
     const today = new Date().toDateString();
@@ -605,13 +551,11 @@ function getTopIssues(tickets) {
 }
 
 // ===== TEXT MESSAGE HANDLING =====
-
 bot.on('text', async (ctx) => {
     const chatId = ctx.chat.id;
     const text = ctx.message.text.trim();
     const { date, time } = getCurrentDateTime();
     
-    // Check if admin is rejecting a ticket
     if (sessions[chatId] && sessions[chatId].flow === 'admin_reject_reason') {
         const { ticketId } = sessions[chatId];
         const ticket = tickets[ticketId];
@@ -622,7 +566,6 @@ bot.on('text', async (ctx) => {
             return;
         }
         
-        // Update ticket status
         ticket.status = 'rejected';
         ticket.adminAction = 'rejected';
         ticket.adminActionTime = `${date} ${time}`;
@@ -630,7 +573,6 @@ bot.on('text', async (ctx) => {
         
         saveTickets();
         
-        // Notify user
         await bot.telegram.sendMessage(
             ticket.userId,
             `❌ *Support Request Rejected*\n\n` +
@@ -643,7 +585,6 @@ bot.on('text', async (ctx) => {
             { parse_mode: 'Markdown' }
         );
         
-        // Notify admin
         await ctx.reply(
             `✅ *Request Rejected*\n\n` +
             `Successfully rejected support request.\n` +
@@ -662,9 +603,7 @@ bot.on('text', async (ctx) => {
         return;
     }
     
-    // Check if message is from admin in active chat
     if (chatId.toString() === ADMIN_ID.toString()) {
-        // Find active chat where admin is participating
         const activeTicketId = Object.keys(activeChats).find(ticketId => 
             activeChats[ticketId].adminId === chatId
         );
@@ -672,7 +611,6 @@ bot.on('text', async (ctx) => {
         if (activeTicketId) {
             const ticket = tickets[activeTicketId];
             if (ticket && ticket.status === 'approved') {
-                // Store message
                 if (!ticket.messages) ticket.messages = [];
                 ticket.messages.push({
                     from: 'admin',
@@ -682,7 +620,6 @@ bot.on('text', async (ctx) => {
                 
                 saveTickets();
                 
-                // Forward to user
                 await bot.telegram.sendMessage(
                     ticket.userId,
                     `👑 *Admin:* ${text}\n\n` +
@@ -690,15 +627,11 @@ bot.on('text', async (ctx) => {
                     { parse_mode: 'Markdown' }
                 );
                 
-                // Confirm to admin
                 await ctx.reply(`✅ Message sent to ${ticket.username}`);
                 return;
             }
         }
-    } 
-    // Check if message is from user in active chat
-    else {
-        // Find active chat where user is participating
+    } else {
         const activeTicketId = Object.keys(activeChats).find(ticketId => 
             activeChats[ticketId].userId === chatId
         );
@@ -706,7 +639,6 @@ bot.on('text', async (ctx) => {
         if (activeTicketId) {
             const ticket = tickets[activeTicketId];
             if (ticket && ticket.status === 'approved') {
-                // Store message
                 if (!ticket.messages) ticket.messages = [];
                 ticket.messages.push({
                     from: 'user',
@@ -716,7 +648,6 @@ bot.on('text', async (ctx) => {
                 
                 saveTickets();
                 
-                // Forward to admin
                 await bot.telegram.sendMessage(
                     ADMIN_ID,
                     `👤 *${ticket.username}:* ${text}\n\n` +
@@ -725,14 +656,12 @@ bot.on('text', async (ctx) => {
                     { parse_mode: 'Markdown' }
                 );
                 
-                // Confirm to user
                 await ctx.reply(`✅ Message sent to admin`);
                 return;
             }
         }
     }
     
-    // If no active chat and user sends message
     if (chatId.toString() !== ADMIN_ID.toString()) {
         await ctx.reply(
             `📞 *Please select a support option first*\n\n` +
@@ -764,18 +693,9 @@ bot.action('backToAdminMenu', async (ctx) => {
 
 // ===== LAUNCH BOT =====
 bot.launch().then(() => {
-    console.log('✅ TG-Help Support Bot is running...');
-    console.log('🤖 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
+    console.log('✅ TG-Help Support Bot Started');
     console.log('👑 Admin ID:', ADMIN_ID);
-    console.log('💾 Database file:', DATA_FILE);
-    console.log('🚀 Ready to handle support tickets!');
 });
 
-// Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
-
-// Keep-alive for Heroku
-setInterval(() => {
-    console.log('🟢 Bot is alive and running...');
-}, 60000); // Every minute
