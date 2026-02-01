@@ -1,3 +1,10 @@
+# TG-Help Support Bot
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mrwasif-dev/TG-Help)
+
+Telegram Support Chat Bot with Ticket System
+
+
 # 🤖 TG-Help - Telegram Support Bot
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mrwasif-dev/TG-Help)
